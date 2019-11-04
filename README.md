@@ -1,4 +1,4 @@
-# Everything about GANs kept as simple as possible
+# Everything about GANs as simple as possible
 
 ## Needed basic knowledge
 ### Entropy
