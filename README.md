@@ -28,22 +28,28 @@ It can also be formulated as the KL between the joint distribution of p(x,y) and
 ## General
 
 ### What is a GAN?
-A General Adversarial Network is a method for approximating the underlying distribution of some data. So for example if you have a lot of images of cats, which is some kind of a distribution, a GAN would try to produce images of cat. The goal at the end is that you can't distinguish the "fake" images created by the GAN from the real images. 
+A General Adversarial Network is a method for approximating the underlying distribution of some data. So for example if you have a lot of images of cats, which is some kind of a distribution, a GAN would try to produce images of cat which look like the images you have. The goal at the end is that you can't distinguish the "fake" images created by the GAN from the real images. 
 
-### How does a basic GAN work?
-In a GAN you have a Generator and a Discriminator, which are neural networks, who play a game. The Generator tries to produce real looking images. The Discriminator is shown real and fake images from the Generator and tries to distinguish between them.  
+### What is the main principle of a GAN?
+In a GAN you have a Generator and a Discriminator, which are neural networks, who play a game. The Generator tries to produce real looking images. The Discriminator is shown real and fake images from the Generator and tries to distinguish between them. 
+The Generator starts from some random numbers z and performs common neural network operations on it while upsampling it to the image resolution. Then the Discriminator, which is similar to common classification neural networks gets fed with the generated fake images and real images. If the image is real, D should output 1, if not, 0.
 
 ### What is the basic loss formulation for a GAN?
-In the basic Loss-Formulation
+In the basic Loss-Formulation D tries to maximize the expected value over the real distribution of log(D(x)) and the expected value over the fake distribution of log(1-D(G(z))). The Generator tries to minimize the expected value over his generated samples of log(1-D(G(z))). A few things to notice: 
+- The expected value of a function f(x) over a distribution is: sum[p(x)f(x)] (in discrete setting). We don't explicitly use a p(x), but by sampling over the data points (or latent space z) we get an approximation of the expected value of the function. So in practise, just think of the loss as log(D(x))+log(1-D(G(z))) calculated over a minibatch. 
+- In practise instead of minimizing log(1-D(G(z))) the Generator tries to maximize log(D(G(z))). This has to do with the gradients. In the beginning, when G is bad, D can easily distinguish between fake and real. So log(1-D(G(z))) becomes approximately log(1), which if you look at the log function has a small gradient. The log of a small value thus has a high gradient for learning, so we use log(D(G(z))).
+- In Neural Networks we always try to minimize a cost function. To turn the max poblems we just formulated into min problems you just multiply it by -1. You can see that now we have -log(D)*y + -log(1-D)*(1-y) where y=1 for real data and y=0 for fake data, which is the cross entropy loss formulation. 
 
 ### What are alternatices for GANs?
-Restricted BM, deep BM and Deep Belief Networks
+//Todo
+Restricted BM, deep BM and Deep Belief Networks, VA
 
 ### Why are GANs so hard to train?
-
+//Todo
 ### What is the latent space?
-
+//Todo
 ### What are some metrics for measuring the performance of GANs?
+//Todo
 
 ## Papers
 
@@ -99,8 +105,11 @@ So they suggest using a reference batch. The reference batch are just some sampl
 This paper also had the idea of the inception score to get an automatic score for the realness of the data (See above). 
 
 ### InfoGAN: Interpretable Representation Learning by Information Maximizing Generative Adversarial Nets - 2016
-In this paper they achieve that single variables of the latent variables have an explicit effect on the generated output. So for example if you create a number, one variable of the latent code would change which number is shown and a second variable is responsible for rotation the number a little. 
-To achieve this, they split the usual noise vector at the beginning in a noise part and a so called latent code c. In the traditional GAN there is no garuantee that the latent code has any meaning, the GAN could simply ignore it. To make sure the code has a significant meaning, they try to maximize the mutual information (see above) between the code and the generated output. So they add -lambda I(c,G(z,c)) to the loss function, where lambda is hyperparameter(- because we want to maximize instead of minimize).
-For maximizing I(c,x), where x is given by G(z,c), you need to minimize the entropy of p(c|x) (make information of c given x small, because by knowing x you already know a lot about c). In practise you don't have p(c|x). But you can obtain a lower bound by an auxiliary distibution Q.
+This paper shows how to have single variables of the latent space have an explicit effect on the generated output. So for example if you generate a number image, one variable of the latent space would change which number is shown and a second variable is responsible for rotating the number a little. 
+To achieve this, they split the usual noise vector at the beginning in a noise part and a so called latent code c. The latent code can have categorial variables (like integeres 1-10) or continues (like -1 to 1). In the traditional GAN there is no garuantee that the latent code has any meaning, the GAN could simply ignore it. To make sure the code has a significant meaning, they try to maximize the mutual information (see above) between the code and the generated output. So they add -lambda I(c,G(z,c)) to the loss function, where lambda is hyperparameter(- because we want to maximize instead of minimize).
+For maximizing I(c,x), where x is given by G(z,c), you need to minimize the entropy of p(c|x) (make information of c given x small, because by knowing x you already know a lot about c). In practise you don't have access to p(c|x). But you can obtain a lower bound by an auxiliary distibution Q. 
+This auxiliary distribution Q is a neural network. It simply shares all convolutional layers of D and adds a final fully connected layer at the end. The mutual information part in the loss always converges faster than the normal GAN, so it doesnt really add an overhead to the traditional GAN.   
 
+## Open questions
 
+### Could you start with z at image resolution and just use dilated convolution? If so, could you make z at the beginning similar to real images to make it easier for G at the beginning?
