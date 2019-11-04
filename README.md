@@ -10,4 +10,4 @@ In a GAN you have a Generator and a Discriminator who play a game. The Generator
 
 
 # Generative Adversarial Nets 
-This was the classic paper introducing GANs by Ian Goodfellow. It stated the idea of using a Generator and a Discriminator playing a min-max Game for the first time. In this paper they showed that for a fixed G, the optimal Discriminator is: D<sub>G*(x) = p<sub>data / (p<sub>data+p<sub>g)
+This was the classic paper introducing GANs by Ian Goodfellow. It stated the idea of using a Generator and a Discriminator playing a min-max Game for the first time. In this paper they showed that for a fixed G, the optimal Discriminator is: D<sub>G</sub>*(x) = p<sub>data</sub> / (p<sub>data</sub>+p<sub>g</sub>)
