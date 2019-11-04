@@ -2,7 +2,11 @@
 
 ## Needed basic knowledge
 ### Entropy
-Entropy is the expected Information of an event, which is disproportional to the uncertainty of it. You can imagine that if an event is really rare, the information of that event happening is really high. Formally it is: E(I(X)) = sum[p(x)*-log(p(x))]
+Entropy is the expected Information of an event, which is disproportional to the uncertainty of it. You can imagine that if an event is really rare, the information of that event happening is really high. Formally it is: E(I(X)) = sum[-p(x)log(p(x))] , where I(x) = -log(P(x)) and the other part is just the formular for expectation. Some intuition why the information is the negative log:
+1) log(1) = 0 -> An event which always happens has no information
+2) log(x) >= 0 -> Information always positive
+3) -log(p) = log(1/p) -> Information monotonically decreasing with p
+4) If x1, x2 independent: I(x1,x2) = -log(P(x1,x2)) = -log(P(x1)P(x2)) = -log(P(x1)) - log(P(x2)) = I(x1) + I(x2)  
 
 ### Measures of Divergence
 Divergence in statics measures the "distance" between two distributions. So if we for example have one distribution where all the data is placed in one point and in the other distribution it is uniformly spaced, the divergence would be really high. If we have in contrast two Gaussian with similar mean and variance, the divergence would be low.
