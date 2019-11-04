@@ -1,6 +1,6 @@
 # Everything about GANs as simple as possible
 
-## Needed basic knowledge
+## Some basics needed for better understanding
 ### Entropy
 Entropy is the expected Information of an event, which is disproportional to the uncertainty of it. You can imagine that if an event is really rare, the information of that event happening is really high. Formally it is: E(I(X)) = sum[-p(x)log(p(x))] , where I(x) = -log(P(x)) and the other part is just the formular for expectation. Some intuition why the information is the negative log:
 1) log(1) = 0 -> An event which always happens has no information
