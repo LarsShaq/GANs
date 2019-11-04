@@ -1,4 +1,4 @@
-# GANs
+# Everything about GANs keept as simple as possible
 
 # Needed basic knowledge
 ## Entropy
@@ -32,6 +32,8 @@ Restricted BM, deep BM and Deep Belief Networks
 
 ## What is the latent space?
 
+## What are some metrics for measuring the performance of GANs?
+
 # Papers
 
 ## Generative Adversarial Nets - 2014
@@ -53,9 +55,35 @@ They also used the trained discriminator as a feature extractor for classificati
 Furthermore they did some analysis of the latent space. They showed that the trainsitions are smooth in latent space, which means the network doesnt memorize. For memorization you would see sudden changes. 
 They also did vector arithmetic on latent space to see for example man+glasses-man+woman = images of woman + glasses
 
-## Learning from Simulated and Unsupervised Images through Adversarial Training
+## Learning from Simulated and Unsupervised Images through Adversarial Training - 2017
 The authors used a GAN to refine a simulated image to look more real to use it for training while maintaining the annotation. Concretly they used images of eyes with the annotation where they are looking.  
 For this they combined a loss for the "realness" and one for maintaining the corectness of the annotation. 
 Especially they used two techniques to make the results better:
 1) They used local adversarial loss, using image patches to train the network. With this they wanted to avoid, that the network concentrates too much on single features
 2) Use a history of faked images to update discriminator. The logic behind this is that G sometimes uses the same tricks again to try to fool D, so by giving D the history he shouldnt fall for it again 
+
+## Improved Techniques for Training GANs - 2016
+Training GANs is finding a Nash Equilibrium between D and G. A Nash Equilibrium is a point where both parties have a optimal strategy for this point, and if one partner diverges from the strategy he will be off worse. Achieving this Equilibrium is very difficult, since it is a non-convex, high dimensional problem with continous parameters. 
+In this paper, the authors developed some useful techniques for training GANs better:
+
+1) Feature Matching
+To avoid that G overfits on D, a new objective function is propesed for G. The "fake" outputs of G should follow a certain statistic, which is given by the the calculated activations of a layer of D. These activations/ features should be similiar between real and fake data. So the distance between this expected activations for the real data and for the created is the objective function. D is trained as usually.
+
+2) Minibatch Discrimination
+*One of the main failure modes for GAN is for the generator to collapse to a parameter setting where it always emits the same point. When collapse to a single mode is imminent, the gradient of the discriminator may point in similar directions for many similar points. Because the discriminator processes each example independently, there is no coordination between its gradients, and thus no mechanism to tell the outputs of the generator to become more dissimilar to each other. Instead, all outputs race toward a single point that the discriminator currently believes is highly realistic. After collapse has occurred, the discriminator learns that this single point comes from the generator, but gradient descent is unable to separate the identical outputs. The gradients of the discriminator then push the single point produced by the generator around space forever, and the algorithm cannot converge to a distribution with the correct amount of entropy. An obvious strategy to avoid this type of failure is to allow the discriminator to look at multiple data examples in combination, and perform what we call minibatch discrimination.*
+To avoid that, they make sure D gets some information about the similarity of examples in a batch, so that it can use this additional information to discriminate more easily. You can imagine that if it sees all the examples look the same, it can say its from G because mode collapse happend. To achieve that they do the following:
+They take a feature vector from some Layer of D. They multiply this feauture vector by a tensor to get a matrix M. (What is this Tensor?) They calculate the L1 distance of the rows of this Matrix to the rows of the matrix from every other sample of the batch. Then they take the negative exponential of it (I assume to make the values smaller to fit better in range of activations). Now they have for for every pair of samples in the batch B (number of rows of the Matrix M) numbers of similarity. For every sample they add up the pairs to all the other samples to obtain B values, which is the final vector they concatenate again to the feature vector. They do this for the real data and the G data batch.
+
+3) Historical Averaging
+They add a additional loss to the two players: the distance between the parameters and the historical average of the parameters. They found this was able to solve non-convex toy problems.
+
+4) One-sided label smoothing
+*Label smoothing, a technique from the 1980s recently independently re-discovered by Szegedy et. al, replaces the 0 and 1 targets for a classifier with smoothed values, like .9 or .1, and was recently shown to reduce the vulnerability of neural networks to adversarial examples.*
+Here they use one-sided smoothing, meaning the negative label still stays 0. They provide an explanation for that, which I haven't fully understood yet.
+
+5) Virtual Batch Normalization
+In common Batch Norm, the output of a network depends also on the other sample in the batch. (Why is that here a problem?)
+So they suggest using a reference batch. The reference batch are just some samples choosen at the beginning. Then they always run the reference batch and the current batch through the network. For every sample of the current batch they use the values of the reference batch and the current sample to normalize. As you can easily see, this has the disadvantage of having to run forward pass twice. So they only use it on G.
+
+This paper also had the idea of the inception score to get an automatic score for the realness of the data (See above). 
+
