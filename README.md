@@ -2,10 +2,10 @@
 
 ## Needed basic knowledge
 ### Entropy
-Entropy is the expected Information of an event, which is disproportional to the uncertainty of it. Assume you toss a coin. The result of the event doesn't give you that much of information, because the uncertainty is just 0.5. If you instead get the result of rolling a dice, the nformation of this event is much higher.  
+Entropy is the expected Information of an event, which is disproportional to the uncertainty of it. You can imagine that if an event is really rare, the information of that event happening is really high. Formally it is: E(I(X)) = sum[p(x)*-log(p(x))]
 
 ### Measures of Divergence
-Divergence in statics measures the "distance" between two distributions. So if we for example have one distribution where all the data is placed in one point and in the other distribution it is uniformly spaced, the divergence would be really high. If we have in contrast two Gaussian with close mean and variance, the divergence would be low.
+Divergence in statics measures the "distance" between two distributions. So if we for example have one distribution where all the data is placed in one point and in the other distribution it is uniformly spaced, the divergence would be really high. If we have in contrast two Gaussian with similar mean and variance, the divergence would be low.
 
 #### Kullback-Leibner Divergence
 This is a non-symmetrical divergence, which means if you measure the divergence from p to q, you would get a different result than measuring the divergence from q to p. 
