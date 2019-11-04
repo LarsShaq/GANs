@@ -1,4 +1,4 @@
-# Everything about GANs keept as simple as possible
+# Everything about GANs kept as simple as possible
 
 ## Needed basic knowledge
 ### Entropy
@@ -6,17 +6,23 @@ Entropy is the expected Information of an event, which is disproportional to the
 1) log(1) = 0 -> An event which always happens has no information
 2) log(x) >= 0 -> Information always positive
 3) -log(p) = log(1/p) -> Information monotonically decreasing with p
-4) If x1, x2 independent: I(x1,x2) = -log(P(x1,x2)) = -log(P(x1)P(x2)) = -log(P(x1)) - log(P(x2)) = I(x1) + I(x2)  
+4) If x1, x2 independent, information should add up: I(x1,x2) = -log(P(x1,x2)) = -log(P(x1)P(x2)) = -log(P(x1)) - log(P(x2)) = I(x1) + I(x2)  
 
 ### Measures of Divergence
 Divergence in statics measures the "distance" between two distributions. So if we for example have one distribution where all the data is placed in one point and in the other distribution it is uniformly spaced, the divergence would be really high. If we have in contrast two Gaussian with similar mean and variance, the divergence would be low.
 
-#### Kullback-Leibner Divergence
+#### Kullback-Leibler Divergence
+Formally the KL-Divergence for distributions p and q is: D(p||q) = sum[p(xi)(log(p(xi))-log(q(xi)))]
+Intuitively it measures how much information we loose by approximating distribution p with q. 
 This is a non-symmetrical divergence, which means if you measure the divergence from p to q, you would get a different result than measuring the divergence from q to p. 
 
 #### Jensen-Shannon Divergence
+Formally: JSD(p||q) = 0.5 KL(p||r) + 0.5 KL(q||r) where r=(p+q)/2. This is kind of a middle ground between the non-symmetric KL(p||q) and KL(q||p). 
 
 #### Earth Mover Distance
+
+### Mutual Information
+Mutual information measures the amount of information learned from knowledge of one random variable Y about another random variable X. Formally: I(X;Y) = H(X) - H(X|Y) = H(Y) - H(Y|X) where H is the entropy.
 
 ## General
 
@@ -90,4 +96,9 @@ In common Batch Norm, the output of a network depends also on the other sample i
 So they suggest using a reference batch. The reference batch are just some samples choosen at the beginning. Then they always run the reference batch and the current batch through the network. For every sample of the current batch they use the values of the reference batch and the current sample to normalize. As you can easily see, this has the disadvantage of having to run forward pass twice. So they only use it on G.
 
 This paper also had the idea of the inception score to get an automatic score for the realness of the data (See above). 
+
+### InfoGAN: Interpretable Representation Learning by Information Maximizing Generative Adversarial Nets - 2016
+In this paper they achieve that single variables of the latent variables have an explicit effect on the generated output. So for example if you create a number, one variable of the latent code would change which number is shown and a second variable is responsible for rotation the number a little. 
+To achieve this, they split the usual noise vector at the beginning in a noise part and a so called latent code c. In the traditional GAN there is no garuantee that the latent code has any meaning, the GAN could simply ignore it. To make sure the code has a significant meaning, they try to maximize the mutual information (see above) between the code and the generated output. So they add -lambda I(c,G(z,c)) to the loss function, where lambda is hyperparameter(- because we want to maximize instead of minimize).
+
 
