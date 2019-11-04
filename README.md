@@ -23,6 +23,7 @@ Formally: JSD(p||q) = 0.5 KL(p||r) + 0.5 KL(q||r) where r=(p+q)/2. This is kind 
 
 ### Mutual Information
 Mutual information measures the amount of information learned from knowledge of one random variable Y about another random variable X. Formally: I(X;Y) = H(X) - H(X|Y) = H(Y) - H(Y|X) where H is the entropy.
+It can also be formulated as the KL between the joint distribution of p(x,y) and the joint distribution if the variables were independent p(x)p(y). So if the variables are independent the joint distribution is exactly p(x)p(y) and the KL divergence is 0, so the mutual information as well. If having X you know everything about Y, than the Entropy/information H(X|Y) is zero, because there is no uncertainty given Y. This comes down to P(x|y) having a small entropy. 
 
 ## General
 
@@ -100,5 +101,6 @@ This paper also had the idea of the inception score to get an automatic score fo
 ### InfoGAN: Interpretable Representation Learning by Information Maximizing Generative Adversarial Nets - 2016
 In this paper they achieve that single variables of the latent variables have an explicit effect on the generated output. So for example if you create a number, one variable of the latent code would change which number is shown and a second variable is responsible for rotation the number a little. 
 To achieve this, they split the usual noise vector at the beginning in a noise part and a so called latent code c. In the traditional GAN there is no garuantee that the latent code has any meaning, the GAN could simply ignore it. To make sure the code has a significant meaning, they try to maximize the mutual information (see above) between the code and the generated output. So they add -lambda I(c,G(z,c)) to the loss function, where lambda is hyperparameter(- because we want to maximize instead of minimize).
+For maximizing I(c,x), where x is given by G(z,c), you need to minimize the entropy of p(c|x) (make information of c given x small, because by knowing x you already know a lot about c). In practise you don't have p(c|x). But you can obtain a lower bound by an auxiliary distibution Q.
 
 
