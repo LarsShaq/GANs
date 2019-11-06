@@ -50,6 +50,8 @@ Restricted BM, deep BM and Deep Belief Networks, VA
 //Todo
 ### What are some metrics for measuring the performance of GANs?
 //Todo
+Inception Score
+MS-SSIM
 
 ## Papers
 
@@ -111,8 +113,15 @@ For maximizing I(c,x), where x is given by G(z,c), you need to minimize the entr
 This auxiliary distribution Q is approximated by a neural network. It simply shares all convolutional layers of D and adds a final fully connected layer at the end. In practise you have two fully connected layers at the end, one for categorial latent codes and one for continous. For the categorial latent code you use a softmax non-linearity like in the traditional classification problems, which is pretty much what it is. For continous variables they found that a factored Gaussian is sufficient. That means that you make an estimate for the my and the variances (or sometimes just left one) of the Gaussian and compare it to the real value. Factorial means that you multiply the Gaussians of all the continous variables, which in log space is a sum.           
 The mutual information part in the loss always converges faster than the normal GAN, so it doesnt really add an overhead to the traditional GAN. 
 
+### Conditional Image Synthesis with Auxiliary Classifier GANs (ACGAN) - 2017
+It is very hard to generate images from a distribution with a lot of variety such as Image Net with is 1000 class labels. In this paper they are able to achieve 128x128 images of Image Net. As in Conditional GAN and other papers it prooved useful to feed G and D additional data. In their approach, they feed G additional data but for D they let it deconstruct the additional data. In this case the additional data were the class labels, and such a additional loss term was added to the GAN formulation. It is not that much of a crazy idea or change of the GAN, but it showed to give really good results. Especially they trained 100 different GANs each for 10 classes to generate all the classes of Image Net. They analyzed the results with some new metrics they thought useful, but I wont go into detail of that. 
+
 ### BAGAN: Data Augmentation with Balancing GAN - 2018
-In this paper they use GANs for Data Augmentation for classes which are underrepresentated. A big problem for this is that you only have a few images of the underrepresentated class, most often not enough to train the GAN well. So they made use of the entire training set, because the GAN can leverage the images from other classes for learning general featues of image and then better create images of the sparse class. For creating images of a certain class, it is necessary to train the GAN conditioned on a certain label like in ACGAN. In ACGAN you output a real/fake label and a class label simultanoeusly. But if you have underrepresented classes this approach is flawed: If G produces real images  
+In this paper they use GANs for Data Augmentation for classes which are underrepresentated. A big problem for this is that you only have a few images of the underrepresentated class, most often not enough to train the GAN well. So they made use of the entire training set, because the GAN can leverage the images from other classes for learning general featues of image and then better create images of the sparse class. For creating images of a certain class, it is necessary to train the GAN conditioned on a certain label like in ACGAN. In ACGAN you output a real/fake label and a class label simultanoeusly. But if you have underrepresented classes this approach is flawed: If G produces real images of the seldom class, D is off good to discriminate it as a false image, since its seldomly real. So the class label of the seldom class and the real loss are kind of contradictory. To avoid this, they changed the loss formulation such that it is not two different losses anymore. Instead D outputs either fake or the class label, which makes it impossiple these two contradict each other. 
+Additionally they use Autoencoders to further improve the training. First, they train an autoencoder, which decoder part is like G and the encoder part is partly like D on the training data. Then they can use the corresponding parts of the autoencoder to initialize G and D. This is especially useful for G, since now the latent code Z corresponds to the encoded part from the autoencoder. They use this fact to produce class conditioned latent code to feed G. They model a class in the latent code with a multivariate normal distribution. By running all class images in the encoder, they can calculate the means and variances, which then stay fixed for training. 
+In the results they trained a classifier on a dataset, dropping real images of a class and augmenting it with the fake ones. They usually get better accuracies than with ACGAN and normal GAN trained on each class, but the results didnt seem that impressive. The image quality seems better then ACGAN though. 
+
+### High-Resolution Image Synthesis and Semantic Manipulation with Conditional GANs - 2018
 
 ## Open questions
 
