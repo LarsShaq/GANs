@@ -130,6 +130,22 @@ Furthermore they use dropout to generate randomness in G instead of z. The logic
 For the architecture of G they use a U-Net. This essentiale has a up and down path with skip connections. These skip connections were used for the low level information which are often shared between input and output, like edges.
 Decent results can already be achieved by relatively small datasets.
 
+### Photographic Image Synthesis with Cascaded Refinement Networks - 2017
+
+### High-Resolution Image Synthesis and Semantic Manipulation with Conditional GANs (pix2pixHD) - 2018
+They optimite the exisiting pix2pix framework by using a coars-to-fine G, a multi-scale D and a robust adversarial learning objective:
+1) Coarse-ToFine:
+They first train a global generator network on lower reosultion images (Witht the architecture used by Johnson et al.. Check out the architecture!). Then they combine this wit a local enhancer network for training them jointly on higher resolution images. The global networks than gets the input 2x downsampled and the features of the two networks get added element-wise before the residual blocks of the local enhancer.
+2) Multi-Scale Discriminator
+For discriminating hig resolution images D needs to be a deeper network or have larger kernels, which potentially could. They use three D, which all use the identic network. Th reak and syntethized images get downscaled 2,4 times for feedig it to the other D. So the coarser D have a higher perceptive field so it has a more global view. It makes also the training easier since you can add the finer D when you add the finer G.
+3) Improved loss
+They add a feature matching loss from varias layers of D with L1 Norm.
+
+The authors also try to incorporate the knowledge about instance into the network, since segmentation maps only give class id but no object ids. Since you dont know how many objects will be in an image you cant easily add the objects ids as an additional input. Therefore they feed the network a boundary map, where objects in general are different.
+
+To be able to have control over the image and change different objects, they feed an additional feature map to G. This feautre map is created by an autoencoder netowrk. For every instance they compute an average pooling of the feature of this instance and expand this averaged value to the full object instance. 
+
+They also experiment with perceptual loss, which improves it slighlty.
 ## Open questions
 
 ### Could you start with z at image resolution and just use dilated convolution? If so, could you make z at the beginning similar to real images to make it easier for G at the beginning?
