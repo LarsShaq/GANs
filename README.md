@@ -137,15 +137,36 @@ They optimite the exisiting pix2pix framework by using a coars-to-fine G, a mult
 1) Coarse-ToFine:
 They first train a global generator network on lower reosultion images (Witht the architecture used by Johnson et al.. Check out the architecture!). Then they combine this wit a local enhancer network for training them jointly on higher resolution images. The global networks than gets the input 2x downsampled and the features of the two networks get added element-wise before the residual blocks of the local enhancer.
 2) Multi-Scale Discriminator
-For discriminating hig resolution images D needs to be a deeper network or have larger kernels, which potentially could. They use three D, which all use the identic network. Th reak and syntethized images get downscaled 2,4 times for feedig it to the other D. So the coarser D have a higher perceptive field so it has a more global view. It makes also the training easier since you can add the finer D when you add the finer G.
+For discriminating hig resolution images D needs to be a deeper network or have larger kernels to have a perceptive field big enough, which potentially could lead to overfitting. They use three D, which all use the identic network. The real and syntethized images get downscaled 2/4 times for feedig it to the other D. So the coarser D have a higher perceptive field so it has a more global view. It makes also the training easier since you can add the finer D when you add the finer G.
 3) Improved loss
 They add a feature matching loss from varias layers of D with L1 Norm.
 
 The authors also try to incorporate the knowledge about instance into the network, since segmentation maps only give class id but no object ids. Since you dont know how many objects will be in an image you cant easily add the objects ids as an additional input. Therefore they feed the network a boundary map, where objects in general are different.
 
-To be able to have control over the image and change different objects, they feed an additional feature map to G. This feautre map is created by an autoencoder netowrk. For every instance they compute an average pooling of the feature of this instance and expand this averaged value to the full object instance. 
+To be able to have control over the image and change different objects, they feed an additional feature map to G. This feautre map is created by an autoencoder network. For every instance they compute an average pooling of the feature of this instance and expand this averaged value to the full object instance. 
 
 They also experiment with perceptual loss, which improves it slighlty.
+
+### Mask-Guided Portrait Editing with Conditional GANs - 2019
+The goal of this here created framework is to convert one image into another with help of the segmentation map, especially manipulate portraits in this case.
+The input to the network is thus a source image, a target image and a corresponding soruce and target feature map. 
+The overall structure exists of three parts:
+1) Local Embedding Network
+Given the single parts of a face from the segmentation map, encoders learn for every part a feature representation.
+2) mask guided sub GAN
+For creating the face image they need to add the feautres from 1) to the target mask. For this they find the center position of each component from the target map and for every component create a Tensor where they place the features at the center location. After that they concatenate theses Tensors.
+3) Background Fusing Sub-Network
+By just copying the the background to the foreground there often are noticeable artifacts at the boundary. They feed the background to an encoder to get an background feature tensor. They then combine this with the foreground to get the final picture.
+
+The loss of some is the sum of 4 total losses:
+1) Local Reconstruction loss for the encoder of the different components, which is the MSE loss.
+2) Global Reconstruction
+They use a training method where they feed the network with paired and unpaired images alternatively. For the paired images, the result should be the same as the input, which leads to another MSE loss for the whole image. 
+3) GAN loss
+They use the GAN training loss with additional feature matching loss smiliar to pix2pixHD.
+4) A face parsing loss
+They train a face parsing network. This is used to check if the generated images have the same mask as the target mask, which then uses pixel wide cross netropy loss. This loss is also only avaible during the paired image step.
+
 ## Open questions
 
 ### Could you start with z at image resolution and just use dilated convolution? If so, could you make z at the beginning similar to real images to make it easier for G at the beginning?
