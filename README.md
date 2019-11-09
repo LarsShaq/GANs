@@ -185,7 +185,28 @@ The weights of G and the encoder of cVAEGAN and cLRGAN are tied.
 
 The results are more diverse than Pix2Pix and look even more realisitc than pix2pix. The authors notice that the perfect size of the latent code depend on the dataset. 
 
+### GAN DISSECTION: VISUALIZING AND UNDERSTANDING GENERATIVE ADVERSARIAL NETWORKS - 2018
+![alt text](https://github.com/LarsShaq/GANs/blob/master/images/GANDissection.png)
+When CNN became successful, there was a lot of work done of understanding and visualzing what is going on inside of them. This paper adresses the same questions, just about GANs. How are objects represented internally?
+Therefore they use two methods:
+1) Characterizing Units by Dissection
+Here they take a feature map of a certain layer of G and upsample it. Then they threshold the value and make IOU with segmetnation masks of different classes. Then they can find for each unit (a unit here is a channel of the feature map) which class it best represents and for each class which unit it best represents. But just because teh activatio of a unit correlates with object, it doesnt mean that unit is responsible for creating that object. Any output will jointly depend on several parts of the represnetation. 
+2) Measuring Causal Relationship Using INtervention
+Here they look which combination of units are responsible for generating objects. Therefore they test if they turn a certain set of units on/off, if the object will disappear. They measure this by measuring the difference in the segmentation mask for this class. Since exhaustively searching over all combination of sets it not feasible they design this as an optimization problem. 
+Results:
+- they find units which correspond well to single objects, like a couch in an image
+- many units present parts of an object, like body and head of a person
+- as with CNNs different layers account for different type of information. The first layer is entangled, not corresponding to anything in specific. The middle layer match semantic objects and objects parts. The last layers match local pixel patterns
+- they can improve images by finding units corresponding to artificats in an image and setting them to zero. This manual change beats state of the art GAN models. Furthermore they expand this to find automatically units: For a unit they generate 200000 images and select 10000 images that maximize the activation of unit u. And this subset is compared to the real images using the FID metrix. The ones with the worst score get ablated. Of the 20 worst choosen this way, 10 correspong to the manually choosen ones
+- by finding corresponding units for an object they can delete that object frmo the scene. But interestingly if the object is critical to the concept of the scene, like a table for a conference room, it is not possible to delete that object.
+- reversiley it is possible to add objects to a scene, but only where it makes sense. A door couldnt be placed in the sky for example. There is some kind of relationship between the units that forbids that
+
+
 ### ELASTIC-INFOGAN: UNSUPERVISED DISENTANGLED REPRESENTATION LEARNING IN IMBALANCED DATA - 2019
 InfoGan assumes for the categorial latent cariables uniform distribution. For a lot of artificial datasets like MNIST, this is true, there is app. an equal number of image from 0-9. But in real world dataset there is an imbalance in the different object categories. Therefore InfoGAN in not able to disentangle different objects in these dataset effectifely. This paper tackles this problem by introducing two ideas:
 1) Instead of assuming an uniform categorial distirbution, the categorial distribution gets learned by the network. Therefore the laten variable ci have to be sampled in a way that is differentiable and therfore applieable for Gradien Descent. They use some Gumbel-Softmax stuff for that (didnt bother about the details).
 2) They wanna make sure that the categorial variables correspond to object identeties, such as one variable corresponds to the digit in MNIST. For this they apply random transformations on the images which keep the object identety, like changing contrast or slight rotation. The estimate of the latent variable should be the same, because it should only bother about object identity and not the other stuff. (didnt bother about details). 
+
+
+
+Delete units to make segmentation better. 
