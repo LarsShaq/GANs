@@ -149,6 +149,7 @@ To be able to have control over the image and change different objects, they fee
 They also experiment with perceptual loss, which improves it slighlty.
 
 ### Mask-Guided Portrait Editing with Conditional GANs - 2019
+![alt text](https://github.com/LarsShaq/GANs/blob/master/images/MaskGuidedGAN.png)
 The goal of this here created framework is to convert one image into another with help of the segmentation map, especially manipulate portraits in this case.
 The input to the network is thus a source image, a target image and a corresponding soruce and target feature map. 
 The overall structure exists of three parts:
@@ -169,6 +170,7 @@ They use the GAN training loss with additional feature matching loss smiliar to 
 They train a face parsing network. This is used to check if the generated images have the same mask as the target mask, which then uses pixel wide cross netropy loss. This loss is also only avaible during the paired image step.
 
 ### Toward Multimodal Image-to-Image Translation (BicycleGAN) - 2018
+![alt text](https://github.com/LarsShaq/GANs/blob/master/images/BicycleGAN.png)
 In this paper they expand pix2pix to be able to create more diverse picuters. 
 As the authors in pix2pix noted, simply adding noise to the latent code does not produce diverse results, as the noise simply gets ignored. 
 In this paper they map the latent code to the ouput but also train an encoder to come back from the ouput to the latent code. This discourages two different latent codes from generating the same output. 
@@ -181,4 +183,3 @@ The hybride model of the two is then the BicycleGAN, which tries to compensate f
 The weights of G and the encoder of cVAEGAN and cLRGAN are tied. 
 
 The results are more diverse than Pix2Pix and look even more realisitc than pix2pix. The authors notice that the perfect size of the latent code depend on the dataset. 
-![alt text](https://github.com/LarsShaq/GANs/blob/master/images/BicycleGAN.png)
