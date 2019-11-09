@@ -169,14 +169,16 @@ They use the GAN training loss with additional feature matching loss smiliar to 
 They train a face parsing network. This is used to check if the generated images have the same mask as the target mask, which then uses pixel wide cross netropy loss. This loss is also only avaible during the paired image step.
 
 ### Toward Multimodal Image-to-Image Translation (BicycleGAN) - 2018
-The goal of this paper is to transform an image into another buter rather than focusing on generating a single result, as many papers have, they focus on creating a distribution of possible results. 
-As the authors in pix2pix noted, simply adding noise to the latent code does not produce diverse results, as the noise simply gets ignored. Here they map the latent coide to the ouput but also train an encoder to come back from the ouput to the latent code. This discourages two different latent codes from generating the same output. 
+In this paper they expand pix2pix to be able to create more diverse picuters. 
+As the authors in pix2pix noted, simply adding noise to the latent code does not produce diverse results, as the noise simply gets ignored. 
+In this paper they map the latent code to the ouput but also train an encoder to come back from the ouput to the latent code. This discourages two different latent codes from generating the same output. 
 They have two approaches which at the end they combine to the final result:
 1) Conditional Variational Autoencoder GAN
-They encode the ground truth image with an encoder. This gives G a noisy version of what the output should look like. They combine this encoded output with the input. They wanna make sure that the encoded latent distribution is close to a standard normal distribution (Understand the logic behind this).
+They encode the ground truth image with an encoder. This enoced imformation gives G a noisy version of what the output should look like. They combine this encoded output with the input to G. Furthermore they wanna make sure that the encoded latent distribution is close to a standard normal distribution. The reason for this is that they can sample during inference from the latent code. If they would not enforce the latent code to follow a distirbution, the distribution at inference time without an output image will be unknown. So if they sample from the latent code, they have a lot of sparse points in the latent space, which will lead to bad outputs. The authors enforce a normal distribution by minimizing the KL divergence between them. 
 2) Conditional Latent Regressor GAN
 This approach is similar to InfoGAN. They use a random latent code and produce an output. Then they run the output trough an encoder to try to recover the initial latent code.
-The hybride model of the two is then the BicycleGAN, which tries to compensate for the disadvantage of the single versions. The disadvantage of the cVAEGAN is that a random latent code may not yield realistic result, due to bad converges to the gaussian or because D didnt have a chance to see sampled results during training. In the cLRGAN the benefit of seeing ground-truth in-out pairs is not there. 
+The hybride model of the two is then the BicycleGAN, which tries to compensate for the disadvantage of the single versions. The disadvantage of the cVAE-GAN is that a random latent code may not yield realistic result, due to bad converges to the gaussian or because D didnt have a chance to see sampled results during training. In the cLR-GAN the benefit of seeing ground-truth in-out pairs is not there. 
 The weights of G and the encoder of cVAEGAN and cLRGAN are tied. 
 
 The results are more diverse than Pix2Pix and look even more realisitc than pix2pix. The authors notice that the perfect size of the latent code depend on the dataset. 
+![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
