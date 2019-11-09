@@ -181,4 +181,4 @@ The hybride model of the two is then the BicycleGAN, which tries to compensate f
 The weights of G and the encoder of cVAEGAN and cLRGAN are tied. 
 
 The results are more diverse than Pix2Pix and look even more realisitc than pix2pix. The authors notice that the perfect size of the latent code depend on the dataset. 
-![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![alt text](https://github.com/LarsShaq/GANs/blob/master/images/BicycleGAN.png)
