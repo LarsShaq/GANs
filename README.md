@@ -183,3 +183,8 @@ The hybride model of the two is then the BicycleGAN, which tries to compensate f
 The weights of G and the encoder of cVAEGAN and cLRGAN are tied. 
 
 The results are more diverse than Pix2Pix and look even more realisitc than pix2pix. The authors notice that the perfect size of the latent code depend on the dataset. 
+
+### ELASTIC-INFOGAN: UNSUPERVISED DISENTANGLED REPRESENTATION LEARNING IN IMBALANCED DATA - 2019
+InfoGan assumes for the categorial latent cariables uniform distribution. For a lot of artificial datasets like MNIST, this is true, there is app. an equal number of image from 0-9. But in real world dataset there is an imbalance in the different object categories. Therefore InfoGAN in not able to disentangle different objects in these dataset effectifely. This paper tackles this problem by introducing two ideas:
+1) Instead of assuming an uniform categorial distirbution, the categorial distribution gets learned by the network. Therefore the laten variable ci have to be sampled in a way that is differentiable and therfore applieable for Gradien Descent. They use some Gumbel-Softmax stuff for that (didnt bother about the details).
+2) They wanna make sure that the categorial variables correspond to object identeties, such as one variable corresponds to the digit in MNIST. For this they apply random transformations on the images which keep the object identety, like changing contrast or slight rotation. The estimate of the latent variable should be the same, because it should only bother about object identity and not the other stuff. (didnt bother about details). 
