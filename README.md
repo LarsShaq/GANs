@@ -117,6 +117,9 @@ The mutual information part in the loss always converges faster than the normal 
 ### Conditional Image Synthesis with Auxiliary Classifier GANs (ACGAN) - 2017
 It is very hard to generate images from a distribution with a lot of variety such as Image Net with is 1000 class labels. In this paper they are able to achieve 128x128 images of Image Net. As in Conditional GAN and other papers it prooved useful to feed G and D additional data. In their approach, they feed G additional data but for D they let it deconstruct the additional data. In this case the additional data were the class labels, and such a additional loss term was added to the GAN formulation. It is not that much of a crazy idea or change of the GAN, but it showed to give really good results. Especially they trained 100 different GANs each for 10 classes to generate all the classes of Image Net. They analyzed the results with some new metrics they thought useful, but I wont go into detail of that. 
 
+### The Effectiveness of Data Augmentation in Image Classification using DeepLearning - 2017
+They compare different augmentation strategies like classic transformations, GAN and learning a style transfer neural network. But for GAN they only use cycle gan not creating other realistic images, but rather images in a different style. Traditional and the learned transfomrations on a neural net work the best. 
+
 ### SYNTHETIC DATA AUGMENTATION USING GAN FOCLASSIFICATIONR IMPROVED LIVER LESION CLASSIFICATION - 2018
 In medical applications there is often a lack of data. They were able to improve there classification accuracy significantly by using synthetically augmentated images from GAN. They trained a GAN for each of the three classes separatly. Since they didnt have that much images to train the GAN, they used a lot of augmentated images (flipped, rotated etc) to train the GAN.
 
