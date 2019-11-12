@@ -189,6 +189,8 @@ The weights of G and the encoder of cVAEGAN and cLRGAN are tied.
 
 The results are more diverse than Pix2Pix and look even more realisitc than pix2pix. The authors notice that the perfect size of the latent code depend on the dataset. 
 
+### DATA AUGMENTATION GENERATIVE ADVERSARIAL NETWORKS - 2018
+
 ### GAN DISSECTION: VISUALIZING AND UNDERSTANDING GENERATIVE ADVERSARIAL NETWORKS - 2018
 ![alt text](https://github.com/LarsShaq/GANs/blob/master/images/GANDissection.png)
 When CNN became successful, there was a lot of work done of understanding and visualzing what is going on inside of them. This paper adresses the same questions, just about GANs. How are objects represented internally?
