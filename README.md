@@ -75,6 +75,8 @@ They compare different augmentation strategies like classic transformations, GAN
 ### Deconvolution and Checkerboard Artifacts
 Good reading material: https://distill.pub/2016/deconv-checkerboard/
 
+### Synthesizing retinal and neuronal images with generative adversarial nets - 2018
+
 ### SYNTHETIC DATA AUGMENTATION USING GAN FOCLASSIFICATIONR IMPROVED LIVER LESION CLASSIFICATION - 2018
 In medical applications there is often a lack of data. They were able to improve there classification accuracy significantly by using synthetically augmentated images from GAN. They trained a GAN for each of the three classes separatly. Since they didnt have that much images to train the GAN, they used a lot of augmentated images (flipped, rotated etc) to train the GAN.
 
