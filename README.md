@@ -66,6 +66,9 @@ It is very hard to generate images from a distribution with a lot of variety suc
 ### The Effectiveness of Data Augmentation in Image Classification using DeepLearning - 2017
 They compare different augmentation strategies like classic transformations, GAN and learning a style transfer neural network. But for GAN they only use cycle gan not creating other realistic images, but rather images in a different style. Traditional and the learned transfomrations on a neural net work the best. 
 
+### Deconvolution and Checkerboard Artifacts
+Good reading material: https://distill.pub/2016/deconv-checkerboard/
+
 ### SYNTHETIC DATA AUGMENTATION USING GAN FOCLASSIFICATIONR IMPROVED LIVER LESION CLASSIFICATION - 2018
 In medical applications there is often a lack of data. They were able to improve there classification accuracy significantly by using synthetically augmentated images from GAN. They trained a GAN for each of the three classes separatly. Since they didnt have that much images to train the GAN, they used a lot of augmentated images (flipped, rotated etc) to train the GAN.
 
