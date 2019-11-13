@@ -1,59 +1,5 @@
 # GANs
 
-## Some basics
-### Entropy
-Entropy is the expected Information of an event, which is disproportional to the uncertainty of it. You can imagine that if an event is really rare, the information of that event happening is really high. Formally it is: E(I(X)) = sum[-p(x)log(p(x))] , where I(x) = -log(P(x)) and the other part is just the formular for expectation. Some intuition why the information is the negative log:
-1) log(1) = 0 -> An event which always happens has no information
-2) log(x) >= 0 -> Information always positive
-3) -log(p) = log(1/p) -> Information monotonically decreasing with p
-4) If x1, x2 independent, information should add up: I(x1,x2) = -log(P(x1,x2)) = -log(P(x1)P(x2)) = -log(P(x1)) - log(P(x2)) = I(x1) + I(x2)  
-
-### Measures of Divergence
-Divergence in statics measures the "distance" between two distributions. So if we for example have one distribution where all the data is placed in one point and in the other distribution it is uniformly spaced, the divergence would be really high. If we have in contrast two Gaussian with similar mean and variance, the divergence would be low.
-
-#### Kullback-Leibler Divergence
-Formally the KL-Divergence for distributions p and q is: D(p||q) = sum[p(xi)(log(p(xi))-log(q(xi)))]
-Intuitively it measures how much information we loose by approximating distribution p with q. 
-This is a non-symmetrical divergence, which means if you measure the divergence from p to q, you would get a different result than measuring the divergence from q to p. 
-
-#### Jensen-Shannon Divergence
-Formally: JSD(p||q) = 0.5 KL(p||r) + 0.5 KL(q||r) where r=(p+q)/2. This is kind of a middle ground between the non-symmetric KL(p||q) and KL(q||p). 
-
-#### Earth Mover Distance
-
-### Mutual Information
-Mutual information measures the amount of information learned from knowledge of one random variable Y about another random variable X. Formally: I(X;Y) = H(X) - H(X|Y) = H(Y) - H(Y|X) where H is the entropy.
-It can also be formulated as the KL between the joint distribution of p(x,y) and the joint distribution if the variables were independent p(x)p(y). So if the variables are independent the joint distribution is exactly p(x)p(y) and the KL divergence is 0, so the mutual information as well. If having X you know everything about Y, than the Entropy/information H(X|Y) is zero, because there is no uncertainty given Y. This comes down to P(x|y) having a small entropy. 
-
-## General
-
-### What is a GAN?
-A General Adversarial Network is a method for approximating the underlying distribution of some data. So for example if you have a lot of images of cats, which is some kind of a distribution, a GAN would try to produce images of cat which look like the images you have. The goal at the end is that you can't distinguish the "fake" images created by the GAN from the real images. 
-
-### What is the main principle of a GAN?
-In a GAN you have a Generator and a Discriminator, which are neural networks, who play a game. The Generator tries to produce real looking images. The Discriminator is shown real and fake images from the Generator and tries to distinguish between them. 
-The Generator starts from some random numbers z and performs common neural network operations on it while upsampling it to the image resolution. Then the Discriminator, which is similar to common classification neural networks gets fed with the generated fake images and real images. If the image is real, D should output 1, if not, 0.
-
-### What is the basic loss formulation for a GAN?
-In the basic Loss-Formulation D tries to maximize the expected value over the real distribution of log(D(x)) and the expected value over the fake distribution of log(1-D(G(z))). The Generator tries to minimize the expected value over his generated samples of log(1-D(G(z))). A few things to notice: 
-- The expected value of a function f(x) over a distribution is: sum[p(x)f(x)] (in discrete setting). We don't explicitly use a p(x), but by sampling over the data points (or latent space z) we get an approximation of the expected value of the function. So in practise, just think of the loss as log(D(x))+log(1-D(G(z))) calculated over a minibatch. 
-- In practise instead of minimizing log(1-D(G(z))) the Generator tries to maximize log(D(G(z))). This has to do with the gradients. In the beginning, when G is bad, D can easily distinguish between fake and real. So log(1-D(G(z))) becomes approximately log(1), which if you look at the log function has a small gradient. The log of a small value thus has a high gradient for learning, so we use log(D(G(z))).
-- In Neural Networks we always try to minimize a cost function. To turn the max poblems we just formulated into min problems you just multiply it by -1. You can see that now we have -log(D)*y + -log(1-D)*(1-y) where y=1 for real data and y=0 for fake data, which is the cross entropy loss formulation. 
-
-### What are alternatices for GANs?
-//Todo
-Restricted BM, deep BM and Deep Belief Networks, VA
-
-### Why are GANs so hard to train?
-//Todo
-### What is the latent space?
-//Todo
-### What are some metrics for measuring the performance of GANs?
-//Todo
-Inception Score
-MS-SSIM
-Learned Perceptual Image Patch Similarity
-
 ## Papers
 
 ### Generative Adversarial Nets - 2014
@@ -222,3 +168,59 @@ InfoGan assumes for the categorial latent cariables uniform distribution. For a 
 
 
 Delete units to make segmentation better. 
+
+
+## Some basics
+### Entropy
+Entropy is the expected Information of an event, which is disproportional to the uncertainty of it. You can imagine that if an event is really rare, the information of that event happening is really high. Formally it is: E(I(X)) = sum[-p(x)log(p(x))] , where I(x) = -log(P(x)) and the other part is just the formular for expectation. Some intuition why the information is the negative log:
+1) log(1) = 0 -> An event which always happens has no information
+2) log(x) >= 0 -> Information always positive
+3) -log(p) = log(1/p) -> Information monotonically decreasing with p
+4) If x1, x2 independent, information should add up: I(x1,x2) = -log(P(x1,x2)) = -log(P(x1)P(x2)) = -log(P(x1)) - log(P(x2)) = I(x1) + I(x2)  
+
+### Measures of Divergence
+Divergence in statics measures the "distance" between two distributions. So if we for example have one distribution where all the data is placed in one point and in the other distribution it is uniformly spaced, the divergence would be really high. If we have in contrast two Gaussian with similar mean and variance, the divergence would be low.
+
+#### Kullback-Leibler Divergence
+Formally the KL-Divergence for distributions p and q is: D(p||q) = sum[p(xi)(log(p(xi))-log(q(xi)))]
+Intuitively it measures how much information we loose by approximating distribution p with q. 
+This is a non-symmetrical divergence, which means if you measure the divergence from p to q, you would get a different result than measuring the divergence from q to p. 
+
+#### Jensen-Shannon Divergence
+Formally: JSD(p||q) = 0.5 KL(p||r) + 0.5 KL(q||r) where r=(p+q)/2. This is kind of a middle ground between the non-symmetric KL(p||q) and KL(q||p). 
+
+#### Earth Mover Distance
+
+### Mutual Information
+Mutual information measures the amount of information learned from knowledge of one random variable Y about another random variable X. Formally: I(X;Y) = H(X) - H(X|Y) = H(Y) - H(Y|X) where H is the entropy.
+It can also be formulated as the KL between the joint distribution of p(x,y) and the joint distribution if the variables were independent p(x)p(y). So if the variables are independent the joint distribution is exactly p(x)p(y) and the KL divergence is 0, so the mutual information as well. If having X you know everything about Y, than the Entropy/information H(X|Y) is zero, because there is no uncertainty given Y. This comes down to P(x|y) having a small entropy. 
+
+## General
+
+### What is a GAN?
+A General Adversarial Network is a method for approximating the underlying distribution of some data. So for example if you have a lot of images of cats, which is some kind of a distribution, a GAN would try to produce images of cat which look like the images you have. The goal at the end is that you can't distinguish the "fake" images created by the GAN from the real images. 
+
+### What is the main principle of a GAN?
+In a GAN you have a Generator and a Discriminator, which are neural networks, who play a game. The Generator tries to produce real looking images. The Discriminator is shown real and fake images from the Generator and tries to distinguish between them. 
+The Generator starts from some random numbers z and performs common neural network operations on it while upsampling it to the image resolution. Then the Discriminator, which is similar to common classification neural networks gets fed with the generated fake images and real images. If the image is real, D should output 1, if not, 0.
+
+### What is the basic loss formulation for a GAN?
+In the basic Loss-Formulation D tries to maximize the expected value over the real distribution of log(D(x)) and the expected value over the fake distribution of log(1-D(G(z))). The Generator tries to minimize the expected value over his generated samples of log(1-D(G(z))). A few things to notice: 
+- The expected value of a function f(x) over a distribution is: sum[p(x)f(x)] (in discrete setting). We don't explicitly use a p(x), but by sampling over the data points (or latent space z) we get an approximation of the expected value of the function. So in practise, just think of the loss as log(D(x))+log(1-D(G(z))) calculated over a minibatch. 
+- In practise instead of minimizing log(1-D(G(z))) the Generator tries to maximize log(D(G(z))). This has to do with the gradients. In the beginning, when G is bad, D can easily distinguish between fake and real. So log(1-D(G(z))) becomes approximately log(1), which if you look at the log function has a small gradient. The log of a small value thus has a high gradient for learning, so we use log(D(G(z))).
+- In Neural Networks we always try to minimize a cost function. To turn the max poblems we just formulated into min problems you just multiply it by -1. You can see that now we have -log(D)*y + -log(1-D)*(1-y) where y=1 for real data and y=0 for fake data, which is the cross entropy loss formulation. 
+
+### What are alternatices for GANs?
+//Todo
+Restricted BM, deep BM and Deep Belief Networks, VA
+
+### Why are GANs so hard to train?
+//Todo
+### What is the latent space?
+//Todo
+### What are some metrics for measuring the performance of GANs?
+//Todo
+Inception Score
+MS-SSIM
+Learned Perceptual Image Patch Similarity
+
