@@ -83,6 +83,10 @@ In medical applications there is often a lack of data. They were able to improve
 ### GAN Augmentation: Augmenting Training Datausing Generative Adversarial Networks - 2018
 They tested the benefits of data augmentation on medical images. They used progressive growing of GANs network to produce the images. The results were that the augmentation with GAN almost always benfited the segmentation training. The smaller the original dataset, the better the results. In one case on MRI images the additional data worsened the performance when using all original data. The GAN was the most beneficial for underrepresented classes. The traditional and GAN augmentation helped each other, bringing better results using them both then the combined single results.
 
+### Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks Jun-Yan (CycleGAN)- 2018
+![alt text](https://github.com/LarsShaq/GANs/blob/master/images/cycleGAN.png)
+In this paper they dont need paired training examples for image translation. Rather they are able to convert images from one distribution, e.g. segmentation map to another e.g. images. Best explained with the image. THe additional thing to the normal GAN loss for G and F is the cycle consisitency loss, making sure that F(G(x))=x and G(F(y))=y by taking L1 norm. Instead of normal GAN loss use least square loss and use the trick of taking historyof images for D.
+
 ### Progresive Growing of GANS for improved quality, stability, and variation - 2018
 The main contribution is that they use progressive growing of GANs for creating high resolution images. They always use a G and D with symmetric architecture. They start at images of 4x4 resolution and with each stage they smoothly add layers to G and D. The logic is that there is less class information and fewer modes at low resolution making the training more stable. The next problem of higher resolution than is always easier mapping from lower resolution to slightly higher then directly mapping to high resolution. Training time also is lower. 
 They furthermore introduce some tricks to improve the training:
