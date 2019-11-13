@@ -86,6 +86,12 @@ For the architecture of G they use a U-Net. This essentiale has a up and down pa
 Decent results can already be achieved by relatively small datasets.
 
 ### Photographic Image Synthesis with Cascaded Refinement Networks - 2017
+This paper achieves slightly better results than pix2pix without the use of GANs. They just use a single feedforward network. They experimented with a lot of different settings and found three key characteristics important for creating realistic images: 
+1) Global Coordination -> Global structures such as symmetrie are important. Therfore the network they designed has a low to high refinement structures. In the low dimension the global features can be cooradinated and then progressively get upscaled. 
+2) High resolution images -> up to 2k
+3) Memory -> The models need to have a high capacity
+The architecutre is as said above a refinement structure. They downsample the segmentation mask as the first input. Then the features get upsampled and combined with a higher resolution segmentation mask as input for a next step. They do not use upconvolution as its said to build characteristic artifacts. They make use of perceptual loss using vgg19 fed with the original image as the net to match the feautures too. To be able to generate diverse results from a single semgentation map they output k images simultaneously and add a new loss: The basic idea is that they calculate the loss of all k images simultaneously and take the loss of the best performing image. *By considering only the best synthesized image,  this lossencourages  the  network  to  spread  its  bets  and  cover  thespace of images that conform to the input semantic layout.The loss is structurally akin to thek-means clustering ob-jective,  which only considers the closest centroid to eachdatapoint and thus encourages the centroids to spread andcover the dataset.* They expend this loss but didnt take time for that.
+One thin I additonally found interesting: They experimented  with automatic measures for image realness (for example using pretrained seman-tic segmentation networks) and found that they can all befooled by augmenting any baseline to also optimize for thee valuated measure; the resulting images are not more real-istic but score very highly
 
 ### High-Resolution Image Synthesis and Semantic Manipulation with Conditional GANs (pix2pixHD) - 2018
 They optimite the exisiting pix2pix framework by using a coars-to-fine G, a multi-scale D and a robust adversarial learning objective:
