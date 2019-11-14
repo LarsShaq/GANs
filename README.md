@@ -93,6 +93,14 @@ Classifier Two-sample test: generator tested on held out test set, which is used
 FCN: feed generated input to segmentation net and measure difference between gt and calculated segmentation map
 +++ a lot to read, read again when needed+++
 
+### An empirical study on evaluation metrics ofgenerative adversarial networks - 2018
+Compare some common evaluation metrices: Inception score, Kernel MMD, Wasserstein Distance, Frechet Inception Distance, 1NN classifier. Results:
+- Inception SCore: good correlation with quality and diversity. But only evaluates generator distribution and not the similarity to real distribution. So any sharp real looking picture would add high to the score. Unable to detect overfitting.
+- Kernel MMD: works suprisingly well when operates in feauter space of pretrained net. Recommended by authors.
+- Wasserstein Distance: works well in suitable featuer space, but high complexity
+- Frechet Inception Distance: not a lot of info there, works good
+- 1NN classifier: Really good measure as well. Recommended together with Kernel
+Published Code to use the metrices. Furthermore authors find that overfitting of GAN to training data does not happen only if very few examples. 
 
 ### Progresive Growing of GANS for improved quality, stability, and variation - 2018
 The main contribution is that they use progressive growing of GANs for creating high resolution images. They always use a G and D with symmetric architecture. They start at images of 4x4 resolution and with each stage they smoothly add layers to G and D. The logic is that there is less class information and fewer modes at low resolution making the training more stable. The next problem of higher resolution than is always easier mapping from lower resolution to slightly higher then directly mapping to high resolution. Training time also is lower. 
