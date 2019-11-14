@@ -244,6 +244,9 @@ Entropy is the expected Information of an event, which is disproportional to the
 3) -log(p) = log(1/p) -> Information monotonically decreasing with p
 4) If x1, x2 independent, information should add up: I(x1,x2) = -log(P(x1,x2)) = -log(P(x1)P(x2)) = -log(P(x1)) - log(P(x2)) = I(x1) + I(x2)  
 
+### Spectral Norm
+//TODO https://de.wikipedia.org/wiki/Spektralnorm
+
 ### Measures of Divergence
 Divergence in statics measures the "distance" between two distributions. So if we for example have one distribution where all the data is placed in one point and in the other distribution it is uniformly spaced, the divergence would be really high. If we have in contrast two Gaussian with similar mean and variance, the divergence would be low.
 
