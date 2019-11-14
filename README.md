@@ -212,6 +212,8 @@ They use the generated images to add to a small, medium and large dataset. It ha
 ### The unusual Effectieness of Averaging in GAN training - 2019
 They show the benefit of averaging the weights of G during training especially using exponential moving average. They give a lot of theoretical stuff I havent read yet, like thath one reason for non-convergence is cycling around an optimal solution. Paper hows promising results and easy to implement.  
 
+### Self-Attention Generative Adversarial Networks - 2019
+
 ### Large Scale GAN Training for High Fidelity Natural Image Synthesis - 2019
 They train conditional GAN on Image Net resulting in state of the art results. Specifically they use a lot of recent techniques to make large scale training possible and show that the GANS benefit a lot from scaling.
 - baseline is SA-GAN architecture
