@@ -87,6 +87,13 @@ They tested the benefits of data augmentation on medical images. They used progr
 ![alt text](https://github.com/LarsShaq/GANs/blob/master/images/cycleGAN.png)
 In this paper they dont need paired training examples for image translation. Rather they are able to convert images from one distribution, e.g. segmentation map to another e.g. images. Best explained with the image. THe additional thing to the normal GAN loss for G and F is the cycle consisitency loss, making sure that F(G(x))=x and G(F(y))=y by taking L1 norm. Instead of normal GAN loss use least square loss and use the trick of taking historyof images for D.
 
+### Pros and Cons of GAN Evaluation Measures - 2018
+Compares a lot of different measures, just will mention a few. Inception score is classic, but only works for classification stuff by using Inception net trained on image net. Frechet Inception Score compares statistics of feature space of generated samples and real ones. To detect mode collapse: Birthday Paradox test, needs manual inspection for duplicates. 
+Classifier Two-sample test: generator tested on held out test set, which is used to train a new D. 
+FCN: feed generated input to segmentation net and measure difference between gt and calculated segmentation map
++++ a lot to read, read again when needed+++
+
+
 ### Progresive Growing of GANS for improved quality, stability, and variation - 2018
 The main contribution is that they use progressive growing of GANs for creating high resolution images. They always use a G and D with symmetric architecture. They start at images of 4x4 resolution and with each stage they smoothly add layers to G and D. The logic is that there is less class information and fewer modes at low resolution making the training more stable. The next problem of higher resolution than is always easier mapping from lower resolution to slightly higher then directly mapping to high resolution. Training time also is lower. 
 They furthermore introduce some tricks to improve the training:
