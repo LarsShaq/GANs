@@ -102,6 +102,9 @@ Compare some common evaluation metrices: Inception score, Kernel MMD, Wasserstei
 - 1NN classifier: Really good measure as well. Recommended together with Kernel
 Published Code to use the metrices. Furthermore authors find that overfitting of GAN to training data does not happen only if very few examples. 
 
+### Spectral Normalization for Generative Adversarial Networks
+They find a new way of making D Lipschitz constant. It outperfroms WGAN-GP while also being computationally more efficient. They tested it with normal GAN loss and hinge loss, hinge loss better results. Spectral normalization computationally costly to calculate but they provide an efficient algorithm for approximating. Need to read again for all the theoretical details. But seems promising, especially since one of the best results so far used it, like bigGAN.  
+
 ### Progresive Growing of GANS for improved quality, stability, and variation - 2018
 The main contribution is that they use progressive growing of GANs for creating high resolution images. They always use a G and D with symmetric architecture. They start at images of 4x4 resolution and with each stage they smoothly add layers to G and D. The logic is that there is less class information and fewer modes at low resolution making the training more stable. The next problem of higher resolution than is always easier mapping from lower resolution to slightly higher then directly mapping to high resolution. Training time also is lower. 
 They furthermore introduce some tricks to improve the training:
