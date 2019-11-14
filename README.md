@@ -209,6 +209,9 @@ In this paper they use syntehtically created images of faces to improve a face r
 Instead of condition on y they extend the framework to lean an embedded representation of y which shall follow a gaussian distirbution. With this they dont have just the discrete values of y to conditon on but continous values from a distribution which lets them sample new identities as well. They make the embedded code follow a posterior by using another discriminator (Adversarial  autoencoders papers). This embedded is zId the latent code for id realted feuatres. To make sure the other part zNID doenst have person-id realted feature they use the mutual information loss.
 They use the generated images to add to a small, medium and large dataset. It had significant imporvemnets to the small dataset but on the large one not as big as you could expect. Furthermore there seems to exist a good ratio between fake and real images for training. 
 
+### The unusual Effectieness of Averaging in GAN training - 2019
+They show the benefit of averaging the weights of G during training especially using exponential moving average. They give a lot of theoretical stuff I havent read yet, like thath one reason for non-convergence is cycling around an optimal solution. Paper hows promising results and easy to implement.  
+
 ### Large Scale GAN Training for High Fidelity Natural Image Synthesis - 2019
 They train conditional GAN on Image Net resulting in state of the art results. Specifically they use a lot of recent techniques to make large scale training possible and show that the GANS benefit a lot from scaling.
 - baseline is SA-GAN architecture
