@@ -206,6 +206,25 @@ In this paper they use syntehtically created images of faces to improve a face r
 Instead of condition on y they extend the framework to lean an embedded representation of y which shall follow a gaussian distirbution. With this they dont have just the discrete values of y to conditon on but continous values from a distribution which lets them sample new identities as well. They make the embedded code follow a posterior by using another discriminator (Adversarial  autoencoders papers). This embedded is zId the latent code for id realted feuatres. To make sure the other part zNID doenst have person-id realted feature they use the mutual information loss.
 They use the generated images to add to a small, medium and large dataset. It had significant imporvemnets to the small dataset but on the large one not as big as you could expect. Furthermore there seems to exist a good ratio between fake and real images for training. 
 
+### Large Scale GAN Training for High Fidelity Natural Image Synthesis - 2019
+They train conditional GAN on Image Net resulting in state of the art results. Specifically they use a lot of recent techniques to make large scale training possible and show that the GANS benefit a lot from scaling.
+- baseline is SA-GAN architecture
+- hinge loss GAN objective
+- class information to G with class-conditional BatchNorm and to D with projection
+- employ Spectral Norm in G
+- 2 D steps per G step
+- for evaluation use moving average of G's weights
+- orthogonal initialization
+- found progresive growing unnessecary even gor 512x512
+- found immediately big benefits of increasing batch size (up to 8 times) -> become unstable and collapse. Therfore early stopping
+- increasing capacity of model by using more channels improved a lot to
+- use skipt connections from z to various layers of G
+- deeper model is better, but needed to change architecutre design
+- Trading Variety and Fidelity with truncation trick: During training they sampled z from a normal distribution. During evaluation they can trade off quality vs. variety by truncating the normal distribution they sample, resampling outliers into the truncated shape
+They further analyse the instability of training in G and D:
+- The collapse in G can be seen by looking ath the top three singular values of weight matrix. But constraining these values didnt help stability
+- gradient penalty in D helps with instability but performance degrades. Furhtermore D is memorizing/overfitting towards the collapse point. They test if G memorizes training points which is not the case
+In Appendix: They tested differnt latent sampling staregies. They test some strategies to avoid collapse, like training D even more often than G, learning rate, freezing G beofre collapse etc.. Analyse spikes in D's spectra which have noise which up close look like impulse response. 
 ### ELASTIC-INFOGAN: UNSUPERVISED DISENTANGLED REPRESENTATION LEARNING IN IMBALANCED DATA - 2019
 InfoGan assumes for the categorial latent cariables uniform distribution. For a lot of artificial datasets like MNIST, this is true, there is app. an equal number of image from 0-9. But in real world dataset there is an imbalance in the different object categories. Therefore InfoGAN in not able to disentangle different objects in these dataset effectifely. This paper tackles this problem by introducing two ideas:
 1) Instead of assuming an uniform categorial distirbution, the categorial distribution gets learned by the network. Therefore the laten variable ci have to be sampled in a way that is differentiable and therfore applieable for Gradien Descent. They use some Gumbel-Softmax stuff for that (didnt bother about the details).
