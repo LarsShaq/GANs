@@ -188,6 +188,9 @@ The results are more diverse than Pix2Pix and look even more realisitc than pix2
 ![alt text](https://github.com/LarsShaq/GANs/blob/master/images/DAGAN.png)
 Data augmentation methods could be expanded by just learning a transformation which keeps the class distinguishable but creates a different image. In this paper they create a GAN for learning transformations of images for data augmentation. The key idea is that they feed the discriminator always also the corresponding input image. So in one iteration they feed the generated image plus the input image and in the other they feed the input iamge plus another real image from the same class. This way they make sure that G learns to produce a different image but from the same class distribution. One thing I found interesintg is that they fed the classifier for training at the end the real/fake label: *The real or fake label was also passed to the network, to enable the network to learn how best to emphasise true over generated data. This last step proved crucial to maximizing the potential of the DAGAN augmentations.*
 
+### Towards Open-Set Identity Preserving Face Synthesis - 2018
+They have some stuff important for code for mask guided portrait editign
+
 ### GAN DISSECTION: VISUALIZING AND UNDERSTANDING GENERATIVE ADVERSARIAL NETWORKS - 2018
 ![alt text](https://github.com/LarsShaq/GANs/blob/master/images/GANDissection.png)
 When CNN became successful, there was a lot of work done of understanding and visualzing what is going on inside of them. This paper adresses the same questions, just about GANs. How are objects represented internally?
