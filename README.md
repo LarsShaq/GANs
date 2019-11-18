@@ -241,6 +241,10 @@ InfoGan assumes for the categorial latent cariables uniform distribution. For a 
 1) Instead of assuming an uniform categorial distirbution, the categorial distribution gets learned by the network. Therefore the laten variable ci have to be sampled in a way that is differentiable and therfore applieable for Gradien Descent. They use some Gumbel-Softmax stuff for that (didnt bother about the details).
 2) They wanna make sure that the categorial variables correspond to object identeties, such as one variable corresponds to the digit in MNIST. For this they apply random transformations on the images which keep the object identety, like changing contrast or slight rotation. The estimate of the latent variable should be the same, because it should only bother about object identity and not the other stuff. (didnt bother about details). 
 
+
+### Improved Precision and Recall Metric for AssessingGenerative Models -2019
+Improved metric based on comparing images in feature space. Realness score. Could be interesing for evaluating the quality of images.
+
 ### Attribute-Guided  Sketch  Generation
 Not that useful on first glance
 
