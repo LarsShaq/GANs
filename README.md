@@ -250,6 +250,9 @@ use different architecture for G to achieve state of the art results. Instead of
 ### Self-Supervised GANs via Auxiliary Rotation Loss - 2019
 They used rotation classification as an auxilairy loss to improve unsupervised trainig. They rotated some image of G and asked D to tell teh degree of rotation. The loss of D only depeends on what it says on the real images. The authors especially mention that fortgetting of D is a big problem in training GANs because it is an online learning problem where the data D is trainied on always changes. Self-supervised training can help with that.
 
+### Extremely Weak Supervised Image-to-Image Translation forSemantic Segmentation -2019
+Basically combine pix2pix und cycle gan to be able to use less paired images to achieve good results. Use the best paired images to use doing k mean clustering in feature space. 
+
 ### Attribute-Guided  Sketch  Generation
 Not that useful on first glance
 
