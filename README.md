@@ -244,6 +244,8 @@ InfoGan assumes for the categorial latent cariables uniform distribution. For a 
 
 ### Improved Precision and Recall Metric for AssessingGenerative Models -2019
 Improved metric based on comparing images in feature space. Realness score. Could be interesing for evaluating the quality of images.
+### A Style-Based Generator Architecture for Generative Adversarial Networks -2019
+use different architecture for G to achieve state of the art results. Instead of feeding a noise vecotr as the inout, they learn a constant vector. This then goes through some affine transfromation and goes into different layers of G. Also noise is added to different layers of G. Didnt read the details.
 
 ### Attribute-Guided  Sketch  Generation
 Not that useful on first glance
