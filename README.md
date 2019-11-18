@@ -247,6 +247,9 @@ Improved metric based on comparing images in feature space. Realness score. Coul
 ### A Style-Based Generator Architecture for Generative Adversarial Networks -2019
 use different architecture for G to achieve state of the art results. Instead of feeding a noise vecotr as the inout, they learn a constant vector. This then goes through some affine transfromation and goes into different layers of G. Also noise is added to different layers of G. Didnt read the details.
 
+### Self-Supervised GANs via Auxiliary Rotation Loss - 2019
+They used rotation classification as an auxilairy loss to improve unsupervised trainig. They rotated some image of G and asked D to tell teh degree of rotation. The loss of D only depe
+
 ### Attribute-Guided  Sketch  Generation
 Not that useful on first glance
 
