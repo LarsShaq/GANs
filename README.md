@@ -263,7 +263,7 @@ Used synthetic images of skin as data augmentation. Based on pix2pix with nothin
 They used rotation classification as an auxilairy loss to improve unsupervised trainig. They rotated some image of G and asked D to tell teh degree of rotation. The loss of D only depeends on what it says on the real images. The authors especially mention that fortgetting of D is a big problem in training GANs because it is an online learning problem where the data D is trainied on always changes. Self-supervised training can help with that.
 
 ### Semantic Image Synthesis with Spatially-Adaptive Normalization -2019
-// To Read
+They argue that the normalization layers wash out the information of the segmentation map given as an input, especially when its uniform. As an extreme they show that a one label mask as input is only able to generate random nois. They provide a better way of feeding the segmentation map into G by feeding it in the normalization. Specifically they use convolution layers on the segmentation map and then for batch normalization the parameter alpha and better get calculated separetaly for each spatial location. Thus the information doesnt get lost in the normalization step but explicelity included. They achieve way better mIOU scores than pix2pixHD!
 
 ### Bias Correction of Learned Generative Models usingLikelihood-Free Importance Weighting -2019
 Good to read for the part of data augmentation. Apply some weighting for the single samples for data augmentation.
