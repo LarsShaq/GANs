@@ -256,6 +256,9 @@ Improved metric based on comparing images in feature space. Realness score. Coul
 ### A Style-Based Generator Architecture for Generative Adversarial Networks -2019
 use different architecture for G to achieve state of the art results. Instead of feeding a noise vecotr as the inout, they learn a constant vector. This then goes through some affine transfromation and goes into different layers of G. Also noise is added to different layers of G. Didnt read the details.
 
+### DermGAN:Synthetic Generation of Clinical Skin Images with Pathology -2019
+Used synthetic images of skin as data augmentation. Based on pix2pix with nothing really new. Results were sam as base class, just for some difficutl classes better.
+
 ### Self-Supervised GANs via Auxiliary Rotation Loss - 2019
 They used rotation classification as an auxilairy loss to improve unsupervised trainig. They rotated some image of G and asked D to tell teh degree of rotation. The loss of D only depeends on what it says on the real images. The authors especially mention that fortgetting of D is a big problem in training GANs because it is an online learning problem where the data D is trainied on always changes. Self-supervised training can help with that.
 
