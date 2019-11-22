@@ -265,6 +265,9 @@ They used rotation classification as an auxilairy loss to improve unsupervised t
 ### Semantic Image Synthesis with Spatially-Adaptive Normalization -2019
 // To Read
 
+### Bias Correction of Learned Generative Models usingLikelihood-Free Importance Weighting -2019
+Good to read for the part of data augmentation. Apply some weighting for the single samples for data augmentation.
+
 ### Extremely Weak Supervised Image-to-Image Translation forSemantic Segmentation -2019
 Basically combine pix2pix und cycle gan to be able to use less paired images to achieve good results. Use the best paired images to use doing k mean clustering in feature space. 
 
