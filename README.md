@@ -262,6 +262,9 @@ Used synthetic images of skin as data augmentation. Based on pix2pix with nothin
 ### Self-Supervised GANs via Auxiliary Rotation Loss - 2019
 They used rotation classification as an auxilairy loss to improve unsupervised trainig. They rotated some image of G and asked D to tell teh degree of rotation. The loss of D only depeends on what it says on the real images. The authors especially mention that fortgetting of D is a big problem in training GANs because it is an online learning problem where the data D is trainied on always changes. Self-supervised training can help with that.
 
+### Semantic Image Synthesis with Spatially-Adaptive Normalization -2019
+// To Read
+
 ### Extremely Weak Supervised Image-to-Image Translation forSemantic Segmentation -2019
 Basically combine pix2pix und cycle gan to be able to use less paired images to achieve good results. Use the best paired images to use doing k mean clustering in feature space. 
 
