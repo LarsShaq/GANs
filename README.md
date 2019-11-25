@@ -265,6 +265,9 @@ They used rotation classification as an auxilairy loss to improve unsupervised t
 ### Semantic Image Synthesis with Spatially-Adaptive Normalization -2019
 They argue that the normalization layers wash out the information of the segmentation map given as an input, especially when its uniform. As an extreme they show that a one label mask as input is only able to generate random nois. They provide a better way of feeding the segmentation map into G by feeding it in the normalization. Specifically they use convolution layers on the segmentation map and then for batch normalization the parameter alpha and better get calculated separetaly for each spatial location. Thus the information doesnt get lost in the normalization step but explicelity included. They achieve way better mIOU scores than pix2pixHD!
 
+### Adversarial Examples Improve Image Recognition -2019
+Good for augmentation part. They could train Imagenet with adversarial examples (put adversarial noise on images) and achieve better performance with this which was not possible before. They argue this was because the adversarial and the real images come from different distributions and thus must be treated differently. So they use different batch norm layers for these two distirbutions. Details not looked at. 
+
 ### Bias Correction of Learned Generative Models usingLikelihood-Free Importance Weighting -2019
 Good to read for the part of data augmentation. Apply some weighting for the single samples for data augmentation.
 
