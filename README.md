@@ -274,6 +274,9 @@ Good to read for the part of data augmentation. Apply some weighting for the sin
 ### Extremely Weak Supervised Image-to-Image Translation forSemantic Segmentation -2019
 Basically combine pix2pix und cycle gan to be able to use less paired images to achieve good results. Use the best paired images to use doing k mean clustering in feature space. 
 
+### SEAN: Image Synthesis with Semantic Region-Adaptive Normalization - 2019
+Better than pix2pixhd and spatial normalization. Have to read
+
 ### Attribute-Guided  Sketch  Generation
 Not that useful on first glance
 
