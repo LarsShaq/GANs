@@ -277,6 +277,8 @@ Basically combine pix2pix und cycle gan to be able to use less paired images to 
 ### SEAN: Image Synthesis with Semantic Region-Adaptive Normalization - 2019
 Better than pix2pixhd and spatial normalization. Have to read
 
+### Towards Latent Space Optimality for Auto-Encoder Based Generative Models -2019
+### DR-GAN: Conditional Generative AdversarialNetwork for Fine-Grained Lesion Synthesis onDiabetic Retinopathy Images - 2019
 ### Attribute-Guided  Sketch  Generation
 Not that useful on first glance
 
