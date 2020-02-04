@@ -216,7 +216,8 @@ They use the generated images to add to a small, medium and large dataset. It ha
 They show the benefit of averaging the weights of G during training especially using exponential moving average. They give a lot of theoretical stuff I havent read yet, like thath one reason for non-convergence is cycling around an optimal solution. Paper hows promising results and easy to implement.  
 
 ### Self-Attention Generative Adversarial Networks - 2019
-
+### Generative Adversarial Networks in Computer Vision: A Survey and Taxonomy -2020
+A review
 ### The relativistic discriminator: a key element missing from standard GAN - 2019
 In standard generative adversarial network (SGAN), the discriminator estimates the probability that the input data is real. The generator is trained to increase the probability that fake data is real. We argue that it should also simultaneously decrease the probability that real data is real because 1) this would account for a priori knowledge that half of the data in the mini-batch is fake, 2) this would be observed with divergence minimization, and 3) in optimal settings, SGAN would be equivalent to integral probability metric (IPM) GANs.
 We show that this property can be induced by using a relativistic discriminator which estimate the probability that the given real data is more realistic than a randomly sampled fake data. We also present a variant in which the discriminator estimate the probability that the given real data is more realistic than fake data, on average.
