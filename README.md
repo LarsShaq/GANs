@@ -250,7 +250,8 @@ InfoGan assumes for the categorial latent cariables uniform distribution. For a 
 // To read
 ### Generative Adversarial Networks: A Survey andTaxonomy - 2019
 Short survey of recent architecture and losses. Spectral NOrmalization highly recommended.
-
+### Yes, we GAN: Applying Adversarial Techniques for AutonomousDriving - 2020
+Review of recent GAN and augmentation for autnomus driving
 ### Improved Precision and Recall Metric for AssessingGenerative Models -2019
 Improved metric based on comparing images in feature space. Realness score. Could be interesing for evaluating the quality of images.
 ### A Style-Based Generator Architecture for Generative Adversarial Networks -2019
