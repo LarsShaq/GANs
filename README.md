@@ -1,5 +1,13 @@
 # GANs
 
+## Composition
+
+### Cut, Paste and Learn: Surprisingly Easy Synthesis for Instance Detection
+Show that for objecft detector training already good just cutting out and pasting in objects. But need to make sure no boundary artefacts, so they use different blending techniques.
+
+### Compositional GAN: Learning Image-Conditional Binary Composition - 2019
+They learn a GAN to join two ibjects (such as chair and table), also have car and street. Using composition and then decompositon sort of training scheme. 
+
 ## Papers
 
 ### Generative Adversarial Nets - 2014
